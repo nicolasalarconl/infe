@@ -261,7 +261,12 @@
     
     archivo = "bur26a.dat"
     mx = leeArchivo(filename = archivo)
+    start.time <- Sys.time()
+
+  
     best1 <- simulatedAnnealing1(3000000, mx)
+    end.time <- Sys.time()
+    time.taken <- end.time - start.time
     plot(best1)
     s1<-c(best1)
     for (i in 1:15){
@@ -269,19 +274,26 @@
       s1<-c(s1,best1)
     }
     plot(s1)
+    start.time2 <- Sys.time()
     best2 <- simulatedAnnealing2(3000000, mx)
+    end.time2 <- Sys.time()
+    time.taken2 <- end.time2 - start.time2
     s2<-c(best2)
     for (i in 1:15){
       best2 <- simulatedAnnealing2(3000000, mx)
       s2<-c(s2,best2)
     }
     plot(s2)
+    start.time3 <- Sys.time()
     best3 <- simulatedAnnealing3(3000000, mx)
+    end.time3 <- Sys.time()
+    time.taken3 <- end.time3 - start.time3
     s3<-c(best2)
     for (i in 1:15){
       best3 <- simulatedAnnealing3(3000000, mx)
       s3<-c(s3,best3)
     }
+    
     plot(s3)
 
    
@@ -310,3 +322,49 @@ id<- 1:16
     cat("Comparaciones entre pares de algoritmos (post-hoc)\n")
     cat("--------------------------------------------------\n")
     print(ph2)
+    
+    
+  bestSoluction <-   5426670
+  err1<- (100*(s1[1]-bestSoluction))/bestSoluction
+  error1 <- (err)
+  for (i in 2:16){
+    err1<- (100*(s1[i]-bestSoluction))/bestSoluction
+    error1 <- c(err1,error1)
+  }
+  errorPromedio1<-mean(error1)
+  
+  err2<- (100*(s2[1]-bestSoluction))/bestSoluction
+  error2 <- (err2)
+  for (i in 2:16){
+    err2<- (100*(s2[i]-bestSoluction))/bestSoluction
+    error2 <- c(err2,error2)
+  }
+  errorPromedio2<-mean(error2)
+  err3<- (100*(s3[1]-bestSoluction))/bestSoluction
+  error3 <- (err3)
+  for (i in 2:16){
+    err3<- (100*(s3[i]-bestSoluction))/bestSoluction
+    error3 <- c(err3,error3)
+  }
+  errorPromedio3<-mean(error3)
+  errorPromedio1
+  errorPromedio2
+  errorPromedio3
+  
+  
+  datos2.wide <- data.frame(id,error1,error2,error3)
+  dl2 <- gather(
+    data = datos2.wide,
+    key = "Algoritmo",
+    value = "Error",
+    -id
+  )
+  p2 <- ggboxplot(
+    dl2,
+    x="Algoritmo",y="Error",
+    color="Algoritmo"
+  )
+  
+  plot(p2)
+  
+  
