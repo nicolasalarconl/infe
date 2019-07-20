@@ -11,8 +11,8 @@ readQAP<-function(name){
   return(d)
 }
 
-evaluarQAP<-function(sol, f, d, n){
-  n <-26
+evaluarQAP<-function(sol, f, d){
+  
   acum<-0
   for(i in 1:n){
     for(j in 1:n){
@@ -32,7 +32,7 @@ intercambio<- function(entrada,cambio1,cambio2){
 
 
 actualizar<-function(temperatura){
- # temperatura <- 0.85*temperatura  
+ # temperatura <- 0.85*temperatura
   temperatura <- 0.95*temperatura
   return(temperatura)
 }
@@ -66,7 +66,7 @@ simulatedVecindadBloque<- function(TemperaturaInicial,condicionTemperatura,condi
   resultados <-evaluarS
   Temperatura<- TemperaturaInicial
   condicion <- condicionEquilibrio
-  condicionTemperatura<- Temperatura*condicionTemperatura
+
   while(Temperatura > condicionTemperatura){
     while(condicion > 0){
       s2<-insercion(s,10,2)
@@ -105,7 +105,7 @@ simulatedVecindadBloque<- function(TemperaturaInicial,condicionTemperatura,condi
 
 
 #prueba1<-c(simulatedVecindadBloque(100000000,10,100)) 
-prueba1<-c(simulatedVecindadBloque(300,10,10)) 
+prueba1<-c(simulatedVecindadBloque(100000000000000,1,10)) 
 plot(prueba1)
 
 
